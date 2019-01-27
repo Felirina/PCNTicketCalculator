@@ -27,6 +27,16 @@ namespace PCNTicketCalculator
 
             }
 
+            using (StreamWriter sw = new StreamWriter("RWY_Processed.txt"))
+            {
+                sw.WriteLine("License plate" + "\t" + "Entry date" + "\t" + "Exit date" + "\t" + "Revenue lost" + "\t" + "Stay lenght" + "\t" + "PCN reason");
+
+                foreach (PCNData pcnD in pcnDataList)
+                {
+                    sw.WriteLine(pcnD.ToString());
+                }
+            }
+
 
         }
     }
