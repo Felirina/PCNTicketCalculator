@@ -10,6 +10,7 @@ namespace PCNTicketCalculator
     {
         static void Main(string[] args)
         {
+
         }
     }
 }
