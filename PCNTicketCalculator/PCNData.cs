@@ -49,15 +49,22 @@ namespace PCNTicketCalculator
                         string containedNumber = piece.Replace("Total minutes covered by tickets:", "").Trim();
                         int alreadyPaidMinutes = int.Parse(containedNumber);
 
+                        int alreadyPaidDays = alreadyPaidMinutes / 1440;
+                        alreadyPaidMinutes = alreadyPaidMinutes - (alreadyPaidDays * 1440);
 
                         alreadyPaid = CalculatedHourPrice(alreadyPaidMinutes);
+                        alreadyPaid += alreadyPaidDays * 1000;
                     }
                 }
             }
 
             int minutes = (int)(exitDate - entryDate).TotalMinutes;
 
+            int days = minutes / 1440;
+            minutes = minutes - (days * 1440);
+
             calculatedSummary = CalculatedHourPrice(minutes);
+            calculatedSummary += days * 1000;
         }
 
         public override string ToString()
@@ -124,10 +131,78 @@ namespace PCNTicketCalculator
                 return 900;
             else if (minutes <= 1440)
                 return 1000;
-            else if (minutes <= 2880)
-                return 2000;
+            else
+                return 0;
+
+            /*
+            // One day + extra hours
+
+            else if (minutes <= 120 + 1440)
+                return 200 + 1000;
+            else if (minutes <= 180 + 1440)
+                return 300 + 1000;
+            else if (minutes <= 240 + 1440)
+                return 400 + 1000;
+            else if (minutes <= 300 + 1440)
+                return 500 + 1000;
+            else if (minutes <= 360 + 1440)
+                return 600 + 1000;
+            else if (minutes <= 420 + 1440)
+                return 700 + 1000;
+            else if (minutes <= 480 + 1440)
+                return 800 + 1000;
+            else if (minutes <= 540 + 1440)
+                return 900 + 1000;
+            else if (minutes <= 1440 + 1440)
+                return 1000 + 1000;
+
+            // Two days + extra hours
+
+            else if (minutes <= 120 + 2880)
+                return 200 + 2000;
+            else if (minutes <= 180 +2880)
+                return 300 + 2000;
+            else if (minutes <= 240 + 2880)
+                return 400 + 2000;
+            else if (minutes <= 300 + 2880)
+                return 500 + 2000;
+            else if (minutes <= 360 + 2880)
+                return 600 + 2000;
+            else if (minutes <= 420 + 2880)
+                return 700 + 2000;
+            else if (minutes <= 480 + 2880)
+                return 800 + 2000;
+            else if (minutes <= 540 + 2880)
+                return 900 + 2000;
+            else if (minutes <= 1440 + 2880)
+                return 1000 + 2000;
+
+            // Three days + Extra hours
+
+            if (minutes <= 120 + 4320)
+                return 200 + 3000;
+            else if (minutes <= 180 + 4320)
+                return 300 + 3000;
+            else if (minutes <= 240 + 4320)
+                return 400 + 3000;
+            else if (minutes <= 300 +4320)
+                return 500 + 3000;
+            else if (minutes <= 360 + 4320)
+                return 600 + 3000;
+            else if (minutes <= 420 + 4320)
+                return 700 + 3000;
+            else if (minutes <= 480 + 4320)
+                return 800 + 3000;
+            else if (minutes <= 540 + 4320)
+                return 900 + 3000;
+            else if (minutes <= 1440 + 4320)
+                return 1000 + 3000;
+
+
             else
                 return 8750;
+
+            */
         }
     }
 }
